@@ -3,16 +3,16 @@ import {AlertContext} from "../context/alert/alertContext";
 import {FirebaseContext} from "../context/firebase/firebaseContext";
 
 
-export const Form = () => {
+export const EditForm = () => {
     const [title, setTitle] = useState('')
     const [body, setBody] = useState('')
     const alert = useContext(AlertContext)
     const firebase = useContext(FirebaseContext)
-    const submitHandler = event => {
+    const submitHandler = (event, id) => {
         event.preventDefault()
         if(title.trim()){
-            firebase.addNote(title.trim(), body.trim()).then(() => {
-                alert.show('Заметка была создана', 'success')
+            firebase.editNote(id, title.trim(), body.trim()).then(() => {
+                alert.show('Заметка была изменена', 'success')
             }).catch(() => {
                 alert.show('Что-то пошло не так', 'danger')
             })
@@ -25,7 +25,7 @@ export const Form = () => {
     }
 
     const submitHandler2 = () => {
-        const modal = document.getElementById("noteForm");
+        const modal = document.getElementById("noteForm2");
         const close = document.querySelectorAll('[data-close="true"]');
         modal.style.display = 'block';
         for (let i = 0; i < close.length; i++) {
@@ -47,12 +47,11 @@ export const Form = () => {
 
     return (
         <div>
-            <button className="addNoteButton" type="submit" name="addNote" onClick={submitHandler2}></button>
-            <div id="noteForm" className="modal">
+            <div id="noteForm2" className="modal">
                 <div className="modalContent modalPrimary">
                     <div className="modalHeader">
                         <span className="modalClose" data-close="true">&times;</span>
-                        Создание заметки
+                        Редактирование заметки
                     </div>
                     <div className="modalBody">
                         <form onSubmit={submitHandler}>

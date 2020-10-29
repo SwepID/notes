@@ -2,7 +2,7 @@ import React, {useReducer}from 'react'
 import axios from 'axios'
 import {FirebaseContext} from "./firebaseContext";
 import {firebaseReducer} from "./firebaseReducer";
-import {ADD_NOTE, FETCH_NOTES, REMOVE_NOTE, SHOW_LOADER} from "../types";
+import {ADD_NOTE, FETCH_NOTES, REMOVE_NOTE, SHOW_LOADER, EDIT_NOTE} from "../types";
 
 const url = process.env.REACT_APP_DB_URL
 
@@ -28,9 +28,9 @@ export const FirebaseState = ({children}) =>{
         dispatch({type: FETCH_NOTES, payload})
     }
 
-    const addNote = async title =>{
+    const addNote = async (title, body) =>{
         const note = {
-            title, date: new Date().toJSON()
+            title, body, date: new Date().toJSON()
         }
         try{
             const res = await axios.post(`${url}/notes.json`, note)
@@ -54,10 +54,22 @@ export const FirebaseState = ({children}) =>{
             payload: id
         })
     }
+    const editNote = async (id, newTitle, newBody) =>{
+        const note = axios.get(`${url}/notes/${id}.json`)
+        note.title = newTitle;
+        note.body = newBody;
+        const res = axios.put(`${url}/notes/${id}.json`, note)
+
+        const payload = {
+            ...note,
+            id:id
+        }
+        dispatch({type:EDIT_NOTE, payload})
+    }
 
     return(
         <FirebaseContext.Provider value={{
-            showLoader, fetchNotes, addNote, removeNote,
+            showLoader, fetchNotes, addNote, removeNote, editNote,
             loading: state.loading,
             notes:state.notes
         }}>
