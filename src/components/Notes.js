@@ -14,7 +14,7 @@ export const Notes = ({notes, onRemove}) => {
     const firebase = useContext(FirebaseContext)
     const submitHandler = (event) => {
         event.preventDefault()
-        if(title.trim() || noteId != null){
+        if(title.trim() && noteId != null){
             firebase.editNote(noteId, title.trim(), body.trim()).then(() => {
                 alert.show('Заметка была изменена', 'success')
             }).catch(() => {
@@ -61,17 +61,16 @@ export const Notes = ({notes, onRemove}) => {
                         </div>
                         <div className="editAndDelete">
                             <button type="button"
-                                    className="btn btn-warning btn-sm"
+                                    className="btn btn-warning btn-sm deleteBtn"
                                     onClick={() => {submitHandler2(note.id)}}
                             >
-                                Редактировать
+                                &#128393;
                             </button>
-
                             <button type="button"
                                     className="btn btn-danger btn-sm deleteBtn"
                                     onClick={() => {onRemove(note.id)}}
                             >
-                                Удалить
+                                &#9747;
                             </button>
                         </div>
                     </li>
@@ -109,8 +108,7 @@ export const Notes = ({notes, onRemove}) => {
                             </form>
                         </div>
                         <div className="modalFooter">
-                            Выберите действие
-                            <div>
+                            <div className="modalFooterContent">
                                 <button type="button" className="btn" data-close="true">Закрыть</button>
                                 <button type="button" className="btn" data-close="true" onClick={submitHandler}>Сохранить</button>
                             </div>

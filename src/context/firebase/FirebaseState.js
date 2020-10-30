@@ -58,6 +58,7 @@ export const FirebaseState = ({children}) =>{
         const note = axios.get(`${url}/notes/${id}.json`)
         note.title = newTitle;
         note.body = newBody;
+        note.date = new Date().toJSON();
         const res = axios.put(`${url}/notes/${id}.json`, note)
 
         const payload = {

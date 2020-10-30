@@ -21,7 +21,7 @@ export const Home = () =>{
             ? <Loader />
             : <div className="container"><Notes notes={notes}  onRemove={(removeNote)}/></div>
             }
-
+            <hr/>
         </Fragment>
     )
 }

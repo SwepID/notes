@@ -77,10 +77,10 @@ export const Form = () => {
                         </form>
                     </div>
                     <div className="modalFooter">
-                        Выберите действие
-                        <div>
+
+                        <div className="modalFooterContent">
                             <button type="button" className="btn" data-close="true">Закрыть</button>
-                            <button type="button" className="btn" data-close = "true" onClick={submitHandler}>Сохранить</button>
+                            <button type="button" className="btn" data-close="true" onClick={submitHandler}>Сохранить</button>
                         </div>
                     </div>
                 </div>

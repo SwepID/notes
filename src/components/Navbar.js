@@ -17,14 +17,6 @@ export const Navbar = () => (
                     Заметки
                 </NavLink>
             </li>
-            <li className="nav-item">
-                <NavLink
-                    className="nav-link"
-                    to="/about"
-                >
-                    Информация
-                </NavLink>
-            </li>
         </ul>
     </nav>
 )
